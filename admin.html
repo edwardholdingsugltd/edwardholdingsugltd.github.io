@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Section</title>
+    <link rel="stylesheet" href="styles.css"> <!-- Optional for styling -->
+    <style>
+        /* Basic styling for the form and layout */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+
+        .property {
+            margin-bottom: 20px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .property img, .property video {
+            max-width: 100%;
+            height: auto;
+            border-radius: 5px;
+        }
+
+        .property h3 {
+            font-size: 24px;
+            margin-top: 10px;
+        }
+
+        .property p {
+            font-size: 18px;
+        }
+
+        .property button {
+            padding: 10px;
+            margin-top: 10px;
+            background-color: #f44336;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .property button:hover {
+            background-color: #d32f2f;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Admin Section</h1>
+        <nav>
+            <a href="index.html">Back to Homepage</a>
+        </nav>
+    </header>
+    <main id="mainContent">
+        <div id="loginForm">
+            <h2>Admin Login</h2>
+            <label for="username">Username:</label>
+            <input type="text" id="username" required>
+
+            <label for="password">Password:</label>
+            <input type="password" id="password" required>
+
+            <button onclick="login()">Login</button>
+        </div>
+
+        <div id="uploadForm" style="display: none;">
+            <h2>Add a New Property</h2>
+            <form id="propertyForm">
+                <label for="title">Title:</label>
+                <input type="text" id="title" name="title" required>
+
+                <label for="description">Description:</label>
+                <textarea id="description" name="description" rows="4" required></textarea>
+
+                <label for="price">Price (USD):</label>
+                <input type="number" id="price" name="price" required>
+
+                <label for="contact">Phone Number:</label>
+                <input type="text" id="contact" name="contact" required>
+
+                <label for="image">Image:</label>
+                <input type="file" id="image" accept="image/*" required>
+
+                <label for="video">Video (optional):</label>
+                <input type="file" id="video" accept="video/*">
+
+                <button type="submit">Add Property</button>
+            </form>
+        </div>
+
+        <div id="manageProperties" style="display: none;">
+            <h2>Manage Properties</h2>
+            <div id="propertyList"></div>
+        </div>
+    </main>
+
+    <script>
+        const adminUsername = "123";
+        const adminPassword = "Oscar";
+
+        function login() {
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+
+            if (username === adminUsername && password === adminPassword) {
+                alert("Login successful!");
+                document.getElementById('loginForm').style.display = 'none';
+                document.getElementById('uploadForm').style.display = 'block';
+                document.getElementById('manageProperties').style.display = 'block';
+                displayProperties();
+            } else {
+                alert("Invalid credentials! Please try again.");
+            }
+        }
+
+        function displayProperties() {
+            const storedProperties = JSON.parse(localStorage.getItem('properties')) || [];
+            const propertyList = document.getElementById('propertyList');
+            propertyList.innerHTML = ''; // Clear the list
+
+            storedProperties.forEach((property, index) => {
+                const propertyDiv = document.createElement('div');
+                propertyDiv.className = "property";
+                propertyDiv.innerHTML = `
+                    <img src="${property.image}" alt="${property.title}">
+                    <h3>${property.title}</h3>
+                    <p>${property.description}</p>
+                    <p><strong>Price:</strong> $${property.price}</p>
+                    <p><strong>Contact Number:</strong> ${property.contact}</p>
+                    ${property.video ? `<video src="${property.video}" controls></video>` : ""}
+                    <button onclick="deleteProperty(${index})">Delete</button>
+                `;
+                propertyList.appendChild(propertyDiv);
+            });
+        }
+
+        function deleteProperty(index) {
+            const storedProperties = JSON.parse(localStorage.getItem('properties')) || [];
+            storedProperties.splice(index, 1);
+            localStorage.setItem('properties', JSON.stringify(storedProperties));
+            alert("Property deleted successfully!");
+            displayProperties();
+        }
+
+        document.getElementById('propertyForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const title = document.getElementById('title').value;
+            const description = document.getElementById('description').value;
+            const price = document.getElementById('price').value;
+            const contact = document.getElementById('contact').value;
+            const image = document.getElementById('image').files[0];
+            const video = document.getElementById('video').files[0];
+
+            const reader = new FileReader();
+
+            reader.onload = function(e) {
+                const storedProperties = JSON.parse(localStorage.getItem('properties')) || [];
+                const newProperty = {
+                    title,
+                    description,
+                    price,
+                    contact,
+                    image: e.target.result,
+                    video: video ? URL.createObjectURL(video) : null,
+                };
+
+                storedProperties.push(newProperty);
+                localStorage.setItem('properties', JSON.stringify(storedProperties));
+                alert("Property added successfully!");
+                document.getElementById('propertyForm').reset();
+                displayProperties();
+            };
+
+            reader.readAsDataURL(image);
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edward holdings ug ltd</title>
+    <link rel="stylesheet" href="styles.css"> <!-- Optional for styling -->
+    <style>
+        
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+            color: #333;
+            
+        }
+
+        header {
+            background-color: #4CAF50; /* Green background */
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 36px;
+            margin: 0;
+        }
+
+        nav a {
+            color: white;
+            margin: 0 15px;
+            font-size: 18px;
+            text-decoration: none;
+        }
+
+        nav a:hover {
+            text-decoration: underline;
+        }
+
+        /* Main Section Styling */
+        main {
+            padding: 20px;
+            margin: 0 10%;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        #property-list h2 {
+            font-size: 28px;
+            margin-bottom: 20px;
+            color: #333;
+            background-color: #ffcc00; /* Yellow background */
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        /* Property Block Styling */
+        .property {
+            margin-bottom: 30px;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            background-color: #f9f9f9;
+            transition: all 0.3s ease;
+        }
+
+        .property:hover {
+            background-color: #eef1f5;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .property img, .property video {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+            margin-bottom: 15px;
+        }
+
+        .property h3 {
+            font-size: 30px;
+            margin: 10px 0;
+            color: #4CAF50; /* Green color */
+        }
+
+        .property p {
+            font-size: 20px;
+            line-height: 1.6;
+            margin: 10px 0;
+        }
+
+        .property p strong {
+            color: #333;
+        }
+
+        /* Footer Section Styling */
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            font-size: 18px;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            main {
+                margin: 0 5%;
+            }
+
+            #property-list h2 {
+                font-size: 24px;
+            }
+
+            .property h3 {
+                font-size: 26px;
+            }
+
+            .property p {
+                font-size: 18px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Edward holdings ug ltd</h1>
+        <nav>
+            <!--a href="admin.html">Admin Section</a-->
+        </nav>
+    </header>
+
+    <main>
+        <div id="property-list">
+            <h2>Available Properties in plenty at good Prices</h2>
+            <div><h2>Land For Sale
+Land for sale in Kampala, Entebbe and other areas in Uganda. Find plots of land, farmlands in square miles, acres and decimals in Uganda. We have plots of land for sale in organized estates all across Kampala, Entebbe, Wakiso and Mukono. We can get you residential and commercial plots of land in and around Kampala’s suburbs.
+
+We also help our clients get farmland for agriculture from the Countryside. We have land measuring from a few acres to square miles for those looking to go into agriculture from small scale farmers to commercial agriculture.</h2></div>
+            <div id="dynamicContent">
+                <!-- Dynamic content will appear here -->
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Edward holdings ug ltd. All Rights Reserved.
+            <div>Matovueddie@gmail.com</div></p>
+    </footer>
+
+    <script>
+        const dynamicContent = document.getElementById('dynamicContent');
+        const storedProperties = JSON.parse(localStorage.getItem('properties')) || [];
+
+        if (storedProperties.length === 0) {
+            dynamicContent.innerHTML = "<p>No properties available. Check back later!</p>";
+        } else {
+            storedProperties.forEach(property => {
+                const propertyBlock = document.createElement('div');
+                propertyBlock.className = "property";
+                propertyBlock.innerHTML = `
+                    <h3>${property.title}</h3>
+                    <img src="${property.image}" alt="${property.title}">
+                    <p>${property.description}</p>
+                    <p><strong>Price:</strong> $${property.price}</p>
+                    <p><strong>Phone Number:</strong> ${property.contact}</p>
+                    ${property.video ? `<video src="${property.video}" controls style="max-width: 100%; height: auto;"></video>` : ""}
+                `;
+                dynamicContent.appendChild(propertyBlock);
+            });
+        }
+    </script>
+</body>
+</html>
