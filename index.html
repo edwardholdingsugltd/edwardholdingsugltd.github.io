@@ -6,26 +6,32 @@
     <title>Edward holdings ug ltd</title>
     <link rel="stylesheet" href="styles.css"> <!-- Optional for styling -->
     <style>
-        
         body {
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
             background-color: #f4f4f9;
             color: #333;
-            
         }
 
         header {
-            background-color: #4CAF50; /* Green background */
+            background-color: blue;
             color: white;
-            padding: 20px 0;
-            text-align: center;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         header h1 {
             font-size: 36px;
-            margin: 0;
+            margin: 0 20px;
+        }
+
+        header img {
+            max-width: 100px;
+            max-height: 100px;
+            border-radius: 50%;
         }
 
         nav a {
@@ -43,7 +49,7 @@
         main {
             padding: 20px;
             margin: 0 10%;
-            background-color: white;
+            background-color: blue;
             border-radius: 10px;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
@@ -52,12 +58,11 @@
             font-size: 28px;
             margin-bottom: 20px;
             color: #333;
-            background-color: #ffcc00; /* Yellow background */
+            background-color: #ffcc00;
             padding: 10px;
             border-radius: 5px;
         }
 
-        /* Property Block Styling */
         .property {
             margin-bottom: 30px;
             padding: 20px;
@@ -82,7 +87,7 @@
         .property h3 {
             font-size: 30px;
             margin: 10px 0;
-            color: #4CAF50; /* Green color */
+            color: #4CAF50;
         }
 
         .property p {
@@ -95,7 +100,6 @@
             color: #333;
         }
 
-        /* Footer Section Styling */
         footer {
             background-color: #333;
             color: white;
@@ -104,10 +108,17 @@
             font-size: 18px;
         }
 
-        /* Responsive Design */
         @media (max-width: 768px) {
             main {
                 margin: 0 5%;
+            }
+
+            header {
+                flex-direction: column;
+            }
+
+            header h1 {
+                margin: 10px 0;
             }
 
             #property-list h2 {
@@ -126,28 +137,29 @@
 </head>
 <body>
     <header>
+        <img src="logo.png" alt="Logo">
         <h1>Edward holdings ug ltd</h1>
-        <nav>
-            <!--a href="admin.html">Admin Section</a-->
-        </nav>
     </header>
 
     <main>
         <div id="property-list">
             <h2>Available Properties in plenty at good Prices</h2>
-            <div><h2>Land For Sale
-Land for sale in Kampala, Entebbe and other areas in Uganda. Find plots of land, farmlands in square miles, acres and decimals in Uganda. We have plots of land for sale in organized estates all across Kampala, Entebbe, Wakiso and Mukono. We can get you residential and commercial plots of land in and around Kampala’s suburbs.
+            <div>
+                <h2>
+                    Land For Sale
+                    Land for sale in Mpigi, Wakiso, Mukono, Kampala and other areas in Uganda. Find plots of land, farmlands in square miles, acres, and decimals in Uganda. We have plots of land for sale in organized estates all across Mpigi, Kampala, Wakiso, and Mukono. We can get you residential and commercial plots of land in and around <b>Mpigi.</b>
 
-We also help our clients get farmland for agriculture from the Countryside. We have land measuring from a few acres to square miles for those looking to go into agriculture from small scale farmers to commercial agriculture.</h2></div>
-            <div id="dynamicContent">
-                <!-- Dynamic content will appear here -->
+                    We also help our clients get farmland for agriculture from the countryside. We have land measuring from a few acres to square miles for those looking to go into agriculture from small-scale farmers to commercial agriculture.
+                </h2>
             </div>
+            <div id="dynamicContent"></div>
         </div>
     </main>
 
     <footer>
         <p>&copy; 2024 Edward holdings ug ltd. All Rights Reserved.
-            <div>Matovueddie@gmail.com</div></p>
+            <div><a href="mailto:mdatovueddie@gmail.com">matovueddie@gmail.com</a></div>
+        </p>
     </footer>
 
     <script>
